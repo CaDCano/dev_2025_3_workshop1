@@ -1,5 +1,8 @@
 class Conversion:
     def celsius_a_fahrenheit(self, celsius):
+        celsius = float(input("Ingrese la temperatura en Celsius: "))
+        return ((celsius * 9/5) + 32)
+        
         """
         Convierte temperatura de Celsius a Fahrenheit.
         
@@ -18,6 +21,9 @@ class Conversion:
         pass
     
     def fahrenheit_a_celsius(self, fahrenheit):
+        
+        fahrenheit = float(input("Ingrese la temperatura en fahrenheit: "))
+        return ((fahrenheit - 32) * 5/9)
         """
         Convierte temperatura de Fahrenheit a Celsius.
         
@@ -36,6 +42,9 @@ class Conversion:
         pass
     
     def metros_a_pies(self, metros):
+        
+        metros = float(input("Ingrese la distancia en metros: "))
+        return (metros*3.28084)
         """
         Convierte distancia de metros a pies.
         
@@ -53,6 +62,8 @@ class Conversion:
         pass
     
     def pies_a_metros(self, pies):
+        pies = float(input("Ingrese la distancia en metros: "))
+        return (pies/3.28084)
         """
         Convierte distancia de pies a metros.
         
@@ -70,6 +81,10 @@ class Conversion:
         pass
     
     def decimal_a_binario(self, decimal):
+        
+        decimal = int(input("Ingrese un número decimal: "))
+        return bin(decimal).replace("0b", "")
+        
         """
         Convierte un número decimal a su representación binaria.
         
@@ -86,6 +101,9 @@ class Conversion:
         pass
     
     def binario_a_decimal(self, binario):
+        
+        decimal = int(input("Ingrese un número binario: "), 2)
+        return decimal
         """
         Convierte un número binario a decimal.
         
@@ -102,6 +120,23 @@ class Conversion:
         pass
     
     def decimal_a_romano(self, numero):
+        
+        numero = int(input("Ingrese un número decimal entre 1 y 3999: "))
+        if numero < 1 or numero > 3999:
+            raise ValueError("El número debe estar entre 1 y 3999")
+        roman_numerals = [
+            (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+            (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
+            (10, "X"), (9, "IX"), (5, "V"), (4, "IV"),
+            (1, "I")
+        ]
+        resultado = ""
+        for valor, simbolo in roman_numerals:
+            while numero >= valor:
+                resultado += simbolo
+                numero -= valor
+        return resultado
+    
         """
         Convierte un número decimal a numeración romana.
         
@@ -118,6 +153,23 @@ class Conversion:
         pass
     
     def romano_a_decimal(self, romano):
+        
+        romano = input("Ingrese un número romano válido: ").upper()
+        roman_numerals = {
+            "I": 1, "V": 5, "X": 10, "L": 50,
+            "C": 100, "D": 500, "M": 1000
+        }
+        total = 0
+        prev_value = 0
+        for char in reversed(romano):
+            value = roman_numerals[char]
+            if value < prev_value:
+                total -= value
+            else:
+                total += value
+            prev_value = value
+        return total
+    
         """
         Convierte un número romano a decimal.
         
@@ -150,6 +202,25 @@ class Conversion:
         pass
     
     def morse_a_texto(self, morse):
+        
+        morse = input("Ingrese el código Morse separado por espacios: ")
+        morse_dict = {
+            ".-": "A", "-...": "B", "-..": "D", ".": "E",
+            "..-.": "F", "--.": "G", "....": "H", "..": "I",
+            ".---": "J", "-.-": "K", ".-..": "L", "--": "M",
+            "-.": "N", "---": "O", ".--.": "P", "--.-": "Q",
+            ".-.": "R", "...": "S", "-": "T", "..-": "U",
+            "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
+            "--..": "Z", "/": " "
+        }
+        texto_decodificado = ""
+        for codigo in morse.split(" "):
+            if codigo in morse_dict:
+                texto_decodificado += morse_dict[codigo]
+            else:
+                texto_decodificado += "?"
+        return "El texto decodificado es: ",texto_decodificado
+    
         """
         Convierte código Morse a texto.
         
