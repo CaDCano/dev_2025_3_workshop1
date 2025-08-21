@@ -186,6 +186,28 @@ class Conversion:
         pass
     
     def texto_a_morse(self, texto):
+        
+        texto = input("Ingrese el texto a convertir (letras y números): ").upper()
+        morse_dict = {
+            ".-": "A", "-...": "B", "-..": "D", ".": "E",
+            "..-.": "F", "--.": "G", "....": "H", "..": "I",
+            ".---": "J", "-.-": "K", ".-..": "L", "--": "M",
+            "-.": "N", "---": "O", ".--.": "P", "--.-": "Q",
+            ".-.": "R", "...": "S", "-": "T", "..-": "U",
+            "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
+            "--..": "Z", "/": " "
+        }
+        morse_code = []
+        for char in texto:
+            if char in morse_dict.values():
+                morse_code.append([k for k, v in morse_dict.items() if v == char][0])
+            elif char.isdigit():
+                morse_code.append(char)
+            else:
+                morse_code.append("?")
+        return " ".join(morse_code)
+        
+        
         """
         Convierte texto a código Morse.
         
