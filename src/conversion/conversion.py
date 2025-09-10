@@ -20,7 +20,6 @@ class Conversion:
 
     def decimal_a_romano(self, numero):
         
-        numero = int(input("Ingrese un número decimal entre 1 y 3999: "))
         if numero < 1 or numero > 3999:
             raise ValueError("El número debe estar entre 1 y 3999")
         roman_numerals = [
@@ -39,7 +38,7 @@ class Conversion:
     
     def romano_a_decimal(self, romano):
         
-        romano = input("Ingrese un número romano válido: ").upper()
+        romano = romano.upper()
         roman_numerals = {
             "I": 1, "V": 5, "X": 10, "L": 50,
             "C": 100, "D": 500, "M": 1000
@@ -57,8 +56,7 @@ class Conversion:
 
     
     def texto_a_morse(self, texto):
-        
-        texto = input("Ingrese el texto a convertir (letras y números): ").upper()
+        texto = texto.upper()
         morse_dict = {
             ".-": "A", "-...": "B", "-..": "D", ".": "E",
             "..-.": "F", "--.": "G", "....": "H", "..": "I",
@@ -81,8 +79,6 @@ class Conversion:
 
     
     def morse_a_texto(self, morse):
-        
-        morse = input("Ingrese el código Morse separado por espacios: ")
         morse_dict = {
             ".-": "A", "-...": "B", "-..": "D", ".": "E",
             "..-.": "F", "--.": "G", "....": "H", "..": "I",

@@ -2,7 +2,7 @@ import random
 
 class Games:
     def piedra_papel_tijera(self, jugador1, jugador2):
-        if jugador1 == jugador2:
+        if jugador1 == jugador2 or jugador2 == jugador1:
             return "empate"
         if (jugador1 == "piedra" and jugador2 == "tijera") or \
            (jugador1 == "tijera" and jugador2 == "papel") or \

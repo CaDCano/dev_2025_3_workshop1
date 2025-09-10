@@ -18,12 +18,14 @@ class Data:
 
     def eliminar_duplicados(self, lista):
         resultado = []
-        vistos = {}
+        vistos = set()
         for elem in lista:
-            if elem not in vistos:
+            clave = (elem, type(elem))
+            if clave not in vistos:
                 resultado.append(elem)
-                vistos[elem] = True
+                vistos.add(clave)
         return resultado
+
 
     def merge_ordenado(self, lista1, lista2):
         i, j = 0, 0
@@ -35,7 +37,6 @@ class Data:
             else:
                 resultado.append(lista2[j])
                 j += 1
-        # Agregar lo que falte
         while i < len(lista1):
             resultado.append(lista1[i])
             i += 1
