@@ -4,6 +4,10 @@ class Games:
     def piedra_papel_tijera(self, jugador1, jugador2):
         jugador2 = jugador2.lower()
         jugador1 = jugador1.lower()
+        
+        if jugador2 not in ["piedra", "papel", "tijera"] or jugador1 not in ["piedra", "papel", "tijera"]:
+            return
+        
         if jugador1 == jugador2 or jugador2 == jugador1:
             return "empate"
         if (jugador1 == "piedra" and jugador2 == "tijera") or \
@@ -42,16 +46,25 @@ class Games:
         return [random.choice(colores_disponibles) for _ in range(longitud)]
 
     def validar_movimiento_torre_ajedrez(self, desde_fila, desde_col, hasta_fila, hasta_col, tablero):
+        if desde_fila == hasta_fila and desde_col == hasta_col:
+            return False
+
         if desde_fila != hasta_fila and desde_col != hasta_col:
             return False
+
         if desde_fila == hasta_fila:
             paso = 1 if hasta_col > desde_col else -1
             for c in range(desde_col + paso, hasta_col, paso):
                 if tablero[desde_fila][c] != " ":
                     return False
+
         else:
             paso = 1 if hasta_fila > desde_fila else -1
             for f in range(desde_fila + paso, hasta_fila, paso):
                 if tablero[f][desde_col] != " ":
                     return False
+
+        if tablero[hasta_fila][hasta_col] != " ":
+            return False
         return True
+
