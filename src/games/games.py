@@ -3,7 +3,8 @@ import random
 class Games:
     def piedra_papel_tijera(self, jug1, jug2):
         opciones = {"piedra", "papel", "tijera"}
-        
+        jug1, jug2 = jug1.lower(), jug2.lower()
+
         if jug1 not in opciones or jug2 not in opciones:
             return "invalid"
 
@@ -27,25 +28,23 @@ class Games:
             return "muy bajo"
 
     def ta_te_ti_ganador(self, tablero):
-            vacios = {" ", "", None, "_"}
+        vacios = {" ", "", None, "_"}  
+        for i in range(3):
+            if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in vacios:
+                return tablero[i][0]
+            if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in vacios:
+                return tablero[0][i]
 
-            for i in range(3):
-                if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in vacios:
-                    return tablero[i][0]
-                if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in vacios:
-                    return tablero[0][i]
+        if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in vacios:
+            return tablero[0][0]
+        if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in vacios:
+            return tablero[0][2]
 
-            if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in vacios:
-                return tablero[0][0]
-            if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in vacios:
-                return tablero[0][2]
+        for fila in tablero:
+            if any(c in vacios for c in fila):
+                return "continua"
 
-
-            for fila in tablero:
-                if any(casilla in vacios for casilla in fila):
-                    return "continua"
-
-            return "empate"
+        return "empate"
 
 
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
