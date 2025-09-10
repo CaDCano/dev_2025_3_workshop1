@@ -94,5 +94,5 @@ class Conversion:
                 texto_decodificado += morse_dict[codigo]
             else:
                 texto_decodificado += "?"
-        return "El texto decodificado es: ",texto_decodificado
+        return texto_decodificado
     

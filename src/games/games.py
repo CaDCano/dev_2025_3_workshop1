@@ -2,6 +2,8 @@ import random
 
 class Games:
     def piedra_papel_tijera(self, jugador1, jugador2):
+        jugador2 = jugador2.lower()
+        jugador1 = jugador1.lower()
         if jugador1 == jugador2 or jugador2 == jugador1:
             return "empate"
         if (jugador1 == "piedra" and jugador2 == "tijera") or \
@@ -20,18 +22,21 @@ class Games:
 
     def ta_te_ti_ganador(self, tablero):
         for i in range(3):
-            if tablero[i][0] == tablero[i][1] == tablero[i][2] != " ":
+            if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in (" ", "", None):
                 return tablero[i][0]
-            if tablero[0][i] == tablero[1][i] == tablero[2][i] != " ":
+            if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in (" ", "", None):
                 return tablero[0][i]
-        if tablero[0][0] == tablero[1][1] == tablero[2][2] != " ":
+
+        if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in (" ", "", None):
             return tablero[0][0]
-        if tablero[0][2] == tablero[1][1] == tablero[2][0] != " ":
+        if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in (" ", "", None):
             return tablero[0][2]
+
         for fila in tablero:
-            if " " in fila:
+            if any(casilla in (" ", "", None) for casilla in fila):
                 return "continua"
         return "empate"
+
 
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         return [random.choice(colores_disponibles) for _ in range(longitud)]
