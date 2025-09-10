@@ -1,20 +1,22 @@
 import random
 
 class Games:
-    def piedra_papel_tijera(self, jugador1, jugador2):
-        jugador2 = jugador2.lower()
-        jugador1 = jugador1.lower()
+    def piedra_papel_tijera(self, jug1, jug2):
+        opciones = {"piedra", "papel", "tijera"}
         
-        if jugador2 not in ["piedra", "papel", "tijera"] or jugador1 not in ["piedra", "papel", "tijera"]:
-            return
-        
-        if jugador1 == jugador2 or jugador2 == jugador1:
+        if jug1 not in opciones or jug2 not in opciones:
+            return "invalid"
+
+        if jug1 == jug2:
             return "empate"
-        if (jugador1 == "piedra" and jugador2 == "tijera") or \
-           (jugador1 == "tijera" and jugador2 == "papel") or \
-           (jugador1 == "papel" and jugador2 == "piedra"):
+
+        if (jug1 == "piedra" and jug2 == "tijera") or \
+        (jug1 == "papel" and jug2 == "piedra") or \
+        (jug1 == "tijera" and jug2 == "papel"):
             return "jugador1"
+
         return "jugador2"
+
 
     def adivinar_numero_pista(self, numero_secreto, intento):
         if intento == numero_secreto:
@@ -25,32 +27,44 @@ class Games:
             return "muy bajo"
 
     def ta_te_ti_ganador(self, tablero):
-        for i in range(3):
-            if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in (" ", "", None):
-                return tablero[i][0]
-            if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in (" ", "", None):
-                return tablero[0][i]
+            vacios = {" ", "", None, "_"}
 
-        if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in (" ", "", None):
-            return tablero[0][0]
-        if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in (" ", "", None):
-            return tablero[0][2]
+            for i in range(3):
+                if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in vacios:
+                    return tablero[i][0]
+                if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in vacios:
+                    return tablero[0][i]
 
-        for fila in tablero:
-            if any(casilla in (" ", "", None) for casilla in fila):
-                return "continua"
-        return "empate"
+            if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in vacios:
+                return tablero[0][0]
+            if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in vacios:
+                return tablero[0][2]
+
+
+            for fila in tablero:
+                if any(casilla in vacios for casilla in fila):
+                    return "continua"
+
+            return "empate"
 
 
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         return [random.choice(colores_disponibles) for _ in range(longitud)]
 
     def validar_movimiento_torre_ajedrez(self, desde_fila, desde_col, hasta_fila, hasta_col, tablero):
+        filas = len(tablero)
+        cols = len(tablero[0])
+
+        if not (0 <= desde_fila < filas and 0 <= hasta_fila < filas and
+                0 <= desde_col < cols and 0 <= hasta_col < cols):
+            return False
+
         if desde_fila == hasta_fila and desde_col == hasta_col:
             return False
 
         if desde_fila != hasta_fila and desde_col != hasta_col:
             return False
+
 
         if desde_fila == hasta_fila:
             paso = 1 if hasta_col > desde_col else -1
@@ -66,5 +80,6 @@ class Games:
 
         if tablero[hasta_fila][hasta_col] != " ":
             return False
+
         return True
 
